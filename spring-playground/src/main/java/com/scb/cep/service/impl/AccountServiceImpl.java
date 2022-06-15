@@ -4,7 +4,9 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.scb.cep.entities.Account;
 import com.scb.cep.repository.AccountRepository;
@@ -51,7 +53,7 @@ public class AccountServiceImpl implements AccountService{
 		return "Account Updated for "+a.getName();
 		}
 		else {
-			return "Account doesn't exist";
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Customer doesn't exist");
 		}
 	}
 
