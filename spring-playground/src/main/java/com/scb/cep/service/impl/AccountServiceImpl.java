@@ -59,7 +59,17 @@ public class AccountServiceImpl implements AccountService{
 
 	@Override
 	public String deleteAccount(int id) {
-		accountRepository.deleteById(id);
+		
+		Optional<Account> optional=accountRepository.findById(id);
+		
+		if(optional.isPresent()) {
+			accountRepository.deleteById(id);
+	
+		}
+		else {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Customer doesn't exist");
+		}
+		
 		return "Account Number:"+id+" is deleted.";
 	}
 
